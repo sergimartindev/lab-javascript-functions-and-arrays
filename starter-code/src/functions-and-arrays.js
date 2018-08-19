@@ -98,3 +98,125 @@ var matrix = [
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
+
+function maxOfTwoNumbers(x, y) {
+  if (x > y) {
+    return x;
+  };
+  return y;
+};
+
+function findLongestWord(words) {
+  if (words.length <= 0) {
+    return undefined;
+  };
+
+  let numberOfCharacters = 0;
+  let word = "";
+  words.forEach(function(element){
+    if (element.length > numberOfCharacters) {
+      numberOfCharacters = element.length;
+      word = element;
+    }
+  })
+  return word;
+};
+
+function sumArray(numbers) {
+  const value = numbers.reduce(function(previousValue, currentValue){
+    return Number(previousValue) + Number(currentValue);
+  }, 0);
+  return value;
+}
+
+function averageNumbers(numbers) {
+  if (numbers.length == 0) return undefined;
+  const divider = numbers.length;
+  const sum = numbers.reduce(function(previousValue, currentValue){
+    return Number(previousValue) + Number(currentValue);
+  }, 0);
+
+  return sum / divider;    
+  
+}
+
+function averageWordLength(words) {
+  if (words.length == 0) return undefined;
+
+  let numberOfWords = [];
+  words.forEach(function(element){
+    numberOfWords.push(element.length);
+  });
+
+  const divider = words.length;
+  const sum = numberOfWords.reduce(function(x, y) {
+    return Number(x) + Number(y);
+  }, 0);
+
+  return sum / divider;
+}
+
+
+function uniquifyArray(words) {
+  if (words.length == 0) return undefined;
+  let newArray = [];
+
+  words.forEach(function(element) {
+    if (newArray.indexOf(element) == -1) {
+      newArray.push(element);
+    }
+  });
+
+  return newArray;
+}
+
+function doesWordExist(words, word) {
+  if (words.length == 0) return false;
+  let result = false;
+
+  words.forEach(function(element){
+    if (element == word) result = true;
+  });
+  return result;
+}
+
+function howManyTimes(words, word) {
+  if (words.length == 0) return false;
+  let count = 0;
+
+  words.forEach(function(element){
+    if (element == word) count += 1;
+  });
+
+  return count;
+}
+
+function getProduct(matrix, row, column) {
+  let upperValue = 1;
+  let lowerValue = 1;
+  let leftValue = 1;
+  let rightValue = 1;
+  const targetValue = matrix[row][column];
+
+  if (row != 0) upperValue = matrix[row - 1][column];
+  if (row != 19) lowerValue = matrix[row + 1][column];
+  if (column != 0) leftValue = matrix[row][column - 1];
+  if (column != 19) rightValue = matrix[row][column + 1];
+
+  return upperValue * lowerValue * leftValue * rightValue;
+}
+
+function greatestProduct(matrix) {
+
+  let maxValue = 0;
+  let targetNote = [0, 0];  
+  for (let row = 0; row < 20; row++) {
+    for (let col = 0; col < 20; col++) {
+      const product = getProduct(matrix, row, col)
+      if (product > maxValue) {
+        maxValue = product;
+      }
+    }
+  }
+  return maxValue;
+}
